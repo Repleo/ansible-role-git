@@ -1,0 +1,6 @@
+---
+
+# Whether or not to install or remove
+# choices: [ present, absent ]
+install_state: present
+

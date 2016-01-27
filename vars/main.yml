@@ -1,0 +1,13 @@
+
+git_site:                                         
+ - server:                                           
+    file_name: git
+    listen: 80
+    server_name: git
+    root: "/opt/git/repos"
+    location1: {name: /, try_files: "$uri $uri/"}
+  
+
+base_pkg:
+  - git
+  

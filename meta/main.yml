@@ -1,0 +1,32 @@
+---
+galaxy_info:
+  author: Jeroen Arnoldus
+  description: Ansible role for installing git and nginx for self hosted repositories 
+  company: Repleo, Amstelveen, Holland
+  license: GPLv3
+  min_ansible_version: 1.4
+  platforms:
+    - name: EL
+      versions:
+        - 5
+        - 6
+    - name: Fedora
+      versions:
+        - 16
+        - 17
+        - 18
+    - name: Ubuntu
+      versions:
+        - all
+    - name: Debian
+      versions:
+        - all
+  categories:
+    - git
+    - nginx
+    - server
+  dependencies: 
+  - { role: bennojoy.nginx, git_site }
+  
+
+  
