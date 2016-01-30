@@ -2,4 +2,13 @@
 - hosts: localhost
   remote_user: root
   roles:
-    - ansible-role-git
+    - { ansible-role-git
+	  git_domain_name: git,
+          git_port: 80,
+          git_repo_base_url: git/repos,
+          git_htpasswd: "{{ playbook_dir }}/test/.htpasswd",
+          git_ssl: {
+              local_keystore_dir: "{{ playbook_dir }}/test/",
+              key: git.key,
+              certificate: git_chain.pem
+           }
