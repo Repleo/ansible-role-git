@@ -1,9 +1,21 @@
+- name: set var nginx user account for Redhat
+  set_fact:
+    nginx_uid: "nginx"
+    nginx_gid: "nginx"
+  when: ansible_os_family == "RedHat"
+
+- name: set var nginx user account for Debian
+  set_fact:
+    nginx_uid: "www-data"
+    nginx_gid: "www-data"
+  when: ansible_os_family == "Debian"
+
 - name: Extra repo for debian 
   apt_repository: repo='deb http://mirror.nl.leaseweb.net/debian/ jessie-backports main' state=present
   when: ansible_os_family == "Debian"
 
 - name: Install packages 
-  apt: name={{ item }} state={{ install_state }} update_cache=yes
+  apt: name={{ item }} state=present update_cache=yes
   with_items: base_pkg
   when: ansible_os_family == "Debian" 
   
@@ -16,6 +28,26 @@
   when: ansible_os_family == "RedHat"
   
 - name: Install packages 
-  yum: name={{item}} state={{ install_state }}
+  yum: name={{item}} state=present
   with_items: base_pkg
   when: ansible_os_family == "RedHat"
+
+- name: Create git repo directory
+  file: path={{ git_repo_directory }} state=directory owner=nginx group=nginx mode=0755
+  when: ansible_os_family == "RedHat"
+
+- name: Create git repo directory
+  file: path={{ git_repo_directory }} state=directory owner=www-data group=www-data mode=0755
+  when: ansible_os_family == "Debian"  
+  
+- name: Copy the addrepo script 
+  template: src=add-repo.sh.j2 dest={{ git_repo_directory }}/add-repo.sh mode=0755
+
+- name: Copy htpasswd
+  copy: src={{ git_htpasswd }} dest={{ git_repo_directory }}/.htpasswd  owner={{ nginx_uid }} group={{ nginx_gid }} mode=640 backup=no
+
+
+- name: Copy the readme 
+  template: src=README.addrepo.j2 dest={{ git_repo_directory }}/README.addrepo 
+  notify: 
+  - reload nginx

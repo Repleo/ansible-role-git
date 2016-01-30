@@ -1,13 +1,27 @@
 
+
+
 git_site:                                         
- - server:                                           
-    file_name: git
-    listen: 80
-    server_name: git
-    root: "/opt/git/repos"
-    location1: {name: /, try_files: "$uri $uri/"}
-  
+  - file_name: "{{git_domain_name}}"
+    listen: "{{ git_port }}"
+    server_name: "{{ git_domain_name}}"
+    ssl:
+      "{{ git_ssl }}"
+    locations: 
+      - name: "~ /{{ git_repo_base_url }}(/.*)"
+        lines:
+          - "auth_basic \"access denied\""
+          - "auth_basic_user_file {{ git_repo_directory }}/.htpasswd"
+          - "include        /etc/nginx/fastcgi_params"
+          - "fastcgi_param  SCRIPT_FILENAME /usr/lib/git-core/git-http-backend"
+          - "fastcgi_param  GIT_HTTP_EXPORT_ALL \"\""
+          - "fastcgi_param  GIT_PROJECT_ROOT {{ git_repo_directory }}"
+          - "fastcgi_param  PATH_INFO $1"
+          - "fastcgi_param  REMOTE_USER $remote_user"
+          - "fastcgi_pass   unix:/var/run/fcgiwrap.socket"
+
 
 base_pkg:
   - git
-  
+  - git-core
+  - fcgiwrap

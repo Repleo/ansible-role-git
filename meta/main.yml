@@ -25,8 +25,12 @@ galaxy_info:
     - git
     - nginx
     - server
-  dependencies: 
-  - { role: bennojoy.nginx, git_site }
-  
+dependencies:
+  - { role: repleo.nginx,
+          nginx_sites: 
+            "{{ git_site }}"
+          
+     }
 
   
+

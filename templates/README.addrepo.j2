@@ -1,0 +1,22 @@
+Creating an repo:
+
+mkdir <repo>.git
+cd <repo>.git
+git init --bare
+cd ..
+{% if ansible_os_family == 'RedHat' %} 
+chown -R nginx:nginx <repo>.git
+{% endif %}
+{% if ansible_os_family == 'Debian' %} 
+chown -R www-data:www-data <repo>.git
+{% endif %}
+chmod 750 -R <repo>.git
+
+or:
+
+./add-repo.sh <repo>
+
+
+Cloning repository:
+
+git clone https://{{ git_domain_name }}/{{ git_repo_base_url }}/<repo>.git <repo>

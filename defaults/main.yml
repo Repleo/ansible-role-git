@@ -1,6 +1,24 @@
 ---
 
-# Whether or not to install or remove
-# choices: [ present, absent ]
-install_state: present
+git_domain_name: git
+git_port: 80
+git_repo_directory: /opt/git
+git_repo_base_url: git/repos
+git_htaccess:
+#example value ssl to use in caller
+#git_ssl:
+#    local_keystore_dir: "{{ playbook_dir }}/files/"
+#    key: "git/git.key"
+#    certificate: "git_chain.pem"
+#
 
+# default: null
+
+
+
+git_ssl:
+  local_keystore_dir: 
+  key: 
+  certificate: 
+
+nginx_ssl_dir: /etc/nginx/ssl

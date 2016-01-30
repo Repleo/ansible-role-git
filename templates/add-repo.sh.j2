@@ -1,0 +1,18 @@
+#!/bin/sh
+
+mkdir $1.git
+cd $1.git
+git init --bare
+cd ..
+{% if ansible_os_family == 'RedHat' %} 
+chown -R nginx:nginx $1.git
+{% endif %}
+{% if ansible_os_family == 'Debian' %} 
+chown -R www-data:www-data $1.git
+{% endif %}
+chmod 750 -R $1.git
+
+echo "Repo $1 added\n"
+
+echo "git clone https://{{ git_domain_name }}/{{ git_repo_base_url }}/$1.git $1"
+echo ""
