@@ -1,5 +1,7 @@
 # Ansible Role: git server via https by nginx
 
+[![Build Status](https://travis-ci.org/repleo/ansible-role-git.svg?branch=master)](https://travis-ci.org/repleo/ansible-role-git)
+
 Ansible role for installing git and nginx for self hosted private repositories.
 
 ## Requirements
