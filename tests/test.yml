@@ -12,3 +12,4 @@
               key: git.key,
               certificate: git_chain.pem
            }
+       }
