@@ -6,9 +6,9 @@
           git_domain_name: git,
           git_port: 80,
           git_repo_base_url: git/repos,
-          git_htpasswd: "{{ playbook_dir }}/test/.htpasswd",
+          git_htpasswd: "{{ playbook_dir }}/.htpasswd",
           git_ssl: {
-              local_keystore_dir: "{{ playbook_dir }}/test/",
+              local_keystore_dir: "{{ playbook_dir }}/",
               key: git.key,
               certificate: git_chain.pem
            }
