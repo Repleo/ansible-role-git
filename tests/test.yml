@@ -2,7 +2,7 @@
 - hosts: localhost
   remote_user: root
   roles:
-    - { role:ansible-role-git,
+    - { role: ansible-role-git,
           git_domain_name: git,
           git_port: 80,
           git_repo_base_url: git/repos,
