@@ -3,7 +3,7 @@
   remote_user: root
   roles:
     - { ansible-role-git
-	  git_domain_name: git,
+          git_domain_name: git,
           git_port: 80,
           git_repo_base_url: git/repos,
           git_htpasswd: "{{ playbook_dir }}/test/.htpasswd",
